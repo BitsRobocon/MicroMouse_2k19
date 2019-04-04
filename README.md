@@ -27,3 +27,6 @@ mpu 9250
 -Motor drivers(mostly a pcb based l293d module)
 
 -Battery(not decided)
+
+# 2. Solving algorithm
+-Standard flood-fill to be used, to be modified later on, after a few test runs, as per requirement.

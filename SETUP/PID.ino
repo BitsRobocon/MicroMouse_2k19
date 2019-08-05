@@ -70,7 +70,7 @@ void brake(){ //use data from front sensor to avoid collision
   }
  }
 
-void left_rotation(){
+/*void left_rotation(){
  delay(100);
  digitalWrite(re, HIGH);
  digitalWrite(le, HIGH);
@@ -83,3 +83,4 @@ void left_rotation(){
  digitalWrite(le, LOW);
  delay(1000);
  }
+*/

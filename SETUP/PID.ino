@@ -50,11 +50,11 @@ void pid(){ //The algorithm to be actually used
   digitalWrite(lb, LOW);
   
   float errorR = getDistance(3) - target;
-  float turnR = constrain(defaultRPM - gainR*errorR, 100 , 255);
+  float turnR = constrain(defaultRPM + gainR*errorR, 100 , 255);
   analogWrite(re, turnR);
 
   float errorL = getDistance(2) - target;
-  float turnL = constrain(defaultRPM - gainL*errorL, 100, 255);
+  float turnL = constrain(defaultRPM + gainL*errorL, 100, 255);
   analogWrite(le, turnL);
 }  
 
@@ -66,21 +66,43 @@ void brake(){ //use data from front sensor to avoid collision
     digitalWrite(rb, HIGH);
     digitalWrite(lf, LOW);
     digitalWrite(lb, HIGH);
-    delay(100);
+    delay(100); //reduce this as much as possible (depends on how much the bot skids while braking)
+    resetEncoderValues();
   }
  }
 
-/*void left_rotation(){
- delay(100);
+void left_rotation(){
+ int rWheels = 5; //distance between wheels is 10 cm (rough assumption, check validity while testing). Change to a float variable if required.
+ resetEncoderValues();
+ while(measureR()- measureL() < pi*rWheels){ 
  digitalWrite(re, HIGH);
  digitalWrite(le, HIGH);
  digitalWrite(rf, HIGH);
  digitalWrite(rb, LOW);
  digitalWrite(lf, LOW);
  digitalWrite(lb, HIGH);
- delay(300);
- digitalWrite(re, LOW);
- digitalWrite(le, LOW);
- delay(1000);
  }
-*/
+ delay(300);
+ }
+
+void right_rotation(){
+   int rWheels = 5; //distance between wheels is 10 cm (rough assumption, check validity while testing). Change to a float variable if required.
+ resetEncoderValues();
+ while(measureL()- measureR() < pi*rWheels){ 
+ digitalWrite(re, HIGH);
+ digitalWrite(le, HIGH);
+ digitalWrite(rf, LOW);
+ digitalWrite(rb, HIGH);
+ digitalWrite(lf, HIGH);
+ digitalWrite(lb, LOW);
+ }
+ delay(300);
+  }
+
+void traverse_cell(){
+  resetEncoderValues();
+  int cellsize = 25; //length of one cell in cm, consider rechecking
+  while(measureR() + measureL() < 2*cellsize)
+    pid();
+  }
+  

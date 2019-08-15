@@ -18,9 +18,8 @@
 SharpDistSensor frontSensor(FS, 1);
 SharpDistSensor rightSensor(RS, 1);
 SharpDistSensor leftSensor(LS, 1);
-volatile unsigned long int encoder_R = 0;
-volatile unsigned long int encoder_L = 0;
-
+volatile long int encoder_R = 0;
+volatile long int encoder_L = 0;
 /*
  * MICROMOUSE CODE!
  * Composed of the following sections: 
@@ -43,10 +42,10 @@ void setup(){
   pinMode(FS, INPUT);
   pinMode(encoderRF, INPUT_PULLUP);
   pinMode(encoderLF, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(encoderRF), encoderR, CHANGE);                   //experiment with
-  attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(encoderLF), encoderL, CHANGE);  //RISING, FALLING and CHANGE parameters.
+  attachInterrupt(digitalPinToInterrupt(encoderRF), encoderR, RISING);                   //experiment with
+  attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(encoderLF), encoderL, RISING);  //RISING, FALLING and CHANGE parameters.
   frontSensor.setModel(SharpDistSensor::GP2Y0A41SK0F_5V_DS);
   rightSensor.setModel(SharpDistSensor::GP2Y0A41SK0F_5V_DS);
   leftSensor.setModel(SharpDistSensor::GP2Y0A41SK0F_5V_DS);
-  Serial.begin(112500);
+  Serial.begin(9600);
   }

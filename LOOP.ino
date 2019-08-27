@@ -1,6 +1,3 @@
 void loop() {
-traverse_cell();
-resetEncoderValues();
-delay(1000);
-  
+  one_sided_pid(1);
 }
